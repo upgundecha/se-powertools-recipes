@@ -1,0 +1,5 @@
+/screenshots
+/target
+*.iml
+/.idea
+/.pdfbox.cache
