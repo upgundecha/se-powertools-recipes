@@ -43,14 +43,14 @@ public class WiremockDemoTest {
     }
 
     @Test
-    public void wiremockDemoTest()  {
+    public void wiremockDemoTest() {
         // Define stub for the test
         wireMockServer
                 .stubFor(get(urlEqualTo("/data/2.5/weather?q=Singapore&appid=undefined&units=metric"))
-                .willReturn(aResponse()
-                        .withStatus(200)
-                        .withHeader("Content-Type", "application/json")
-                        .withBodyFile("json/weather_data.json")));
+                        .willReturn(aResponse()
+                                .withStatus(200)
+                                .withHeader("Content-Type", "application/json")
+                                .withBodyFile("json/weather_data.json")));
 
         driver.get("http://localhost:3000/");
 

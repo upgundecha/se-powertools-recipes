@@ -35,18 +35,18 @@ public class FakerDemoTest {
         WebElement confirmPasswordField = driver.findElement(By.id("confirmation"));
         WebElement registerButton = driver.findElement(By.cssSelector("button[title=Register]"));
 
-         String firstName = "Jon";
-         String lastName = "Lee";
-         String email = "jon.lee@jl.com";
+//         String firstName = "Jon";
+//         String lastName = "Lee";
+//         String email = "jon.lee@jl.com";
+//         String password = "P@ssword";
+//         String greetings = String.format("Hello, %s %s!", firstName, lastName);
+
+         //with Faker
+         String firstName = faker.name().firstName();
+         String lastName = faker.name().lastName();
+         String email = faker.internet().emailAddress();
          String password = "P@ssword";
          String greetings = String.format("Hello, %s %s!", firstName, lastName);
-
-        // with Faker
-        // String firstName = faker.name().firstName();
-        // String lastName = faker.name().lastName();
-        // String email = faker.internet().emailAddress();
-        // String password = "P@ssword";
-        // String greetings = String.format("Hello, %s %s!", firstName, lastName);
 
         // Registration steps
         firstNameField.sendKeys(firstName);
