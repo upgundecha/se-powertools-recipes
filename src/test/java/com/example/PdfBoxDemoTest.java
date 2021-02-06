@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.Hashtable;
 import java.util.Map;
 
-public class PdfTest {
+public class PdfBoxDemoTest {
 
     WebDriver driver;
     String downloadFolderPath;
@@ -43,7 +43,7 @@ public class PdfTest {
     }
 
     @Test
-    public void pdfTest() throws Exception {
+    public void pdfBoxDemoTest() throws Exception {
 
         PDDocument doc;
 

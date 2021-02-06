@@ -19,7 +19,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 
-public class WeatherAppTest {
+public class WiremockDemoTest {
 
     WebDriver driver;
     WireMockServer wireMockServer;
@@ -36,14 +36,14 @@ public class WeatherAppTest {
 
         // Setup and start the Wiremock server
         wireMockServer = new WireMockServer(options()
-                .port(8090)
+                .port(4000)
                 .notifier(new ConsoleNotifier(true)));
 
         wireMockServer.start();
     }
 
     @Test
-    public void weatherAppTest()  {
+    public void wiremockDemoTest()  {
         // Define stub for the test
         wireMockServer
                 .stubFor(get(urlEqualTo("/data/2.5/weather?q=Singapore&appid=undefined&units=metric"))
@@ -66,7 +66,7 @@ public class WeatherAppTest {
                 .findElement(By
                         .cssSelector("div.makeStyles-detailLine-8 > h6:nth-child(1)"));
 
-        Assert.assertEquals("31°C", temparatureLabel);
+        Assert.assertEquals("31°C", temparatureLabel.getText());
     }
 
     @After()

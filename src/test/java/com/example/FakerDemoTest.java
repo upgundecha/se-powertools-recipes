@@ -12,7 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class RegisterUserTest {
+public class FakerDemoTest {
 
     WebDriver driver;
     Faker faker;
@@ -25,8 +25,9 @@ public class RegisterUserTest {
     }
 
     @Test
-    public void registerUserTest() {
+    public void fakerDemoTest() {
         driver.get("http://demo-store.seleniumacademy.com/customer/account/create/");
+
         WebElement firstNameField = driver.findElement(By.id("firstname"));
         WebElement lastNameField = driver.findElement(By.id("lastname"));
         WebElement emailAddressField = driver.findElement(By.id("email_address"));
@@ -34,12 +35,18 @@ public class RegisterUserTest {
         WebElement confirmPasswordField = driver.findElement(By.id("confirmation"));
         WebElement registerButton = driver.findElement(By.cssSelector("button[title=Register]"));
 
-        // Generate test data
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().lastName();
-        String email = faker.internet().emailAddress();
-        String password = "P@ssword";
-        String greetings = String.format("Hello, %s %s!", firstName, lastName);
+         String firstName = "Jon";
+         String lastName = "Lee";
+         String email = "jon.lee@jl.com";
+         String password = "P@ssword";
+         String greetings = String.format("Hello, %s %s!", firstName, lastName);
+
+        // with Faker
+        // String firstName = faker.name().firstName();
+        // String lastName = faker.name().lastName();
+        // String email = faker.internet().emailAddress();
+        // String password = "P@ssword";
+        // String greetings = String.format("Hello, %s %s!", firstName, lastName);
 
         // Registration steps
         firstNameField.sendKeys(firstName);

@@ -14,7 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.awt.image.BufferedImage;
 
-public class PromoBannerTest {
+public class TesseractDemoTest {
 
     WebDriver driver;
     Tesseract tesseract;
@@ -30,7 +30,7 @@ public class PromoBannerTest {
     }
 
     @Test
-    public void promoBannerTest() throws Exception {
+    public void tsrctDemoTest() throws Exception {
         driver.get("http://demo-store.seleniumacademy.com/");
 
         WebElement promoBanner = driver.findElement(By.cssSelector("ul.promos> li:nth-child(1) > a"));

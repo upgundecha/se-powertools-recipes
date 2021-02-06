@@ -3,31 +3,35 @@ package com.example;
 import com.assertthat.selenium_shutterbug.core.Capture;
 import com.assertthat.selenium_shutterbug.core.Shutterbug;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import net.sourceforge.tess4j.Tesseract;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Date;
 
-public class Example {
+public class ShutterBugDemoTest {
 
-    public static void main(String... args) throws Exception {
-        WebDriver driver;
+    WebDriver driver;
+
+    @Before
+    public void setup() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+    }
 
+    @Test
+    public void shutterBugDemoTest() throws Exception {
         driver.get("http://demo-store.seleniumacademy.com/");
+        Assert.assertEquals("Madison Island", driver.getTitle());
 
-        new WebDriverWait(driver, 30)
-                .until(ExpectedConditions
-                        .titleIs("Madison Island"));
-
+        // capture entire page
         Shutterbug.shootPage(driver, Capture.FULL, true).save();
 
         WebElement storeLogo = driver.findElement(By.className("logo"));
@@ -35,6 +39,7 @@ public class Example {
 
         searchBox.sendKeys("Testing");
 
+        // blur and annotate
         Shutterbug.shootPage(driver)
                 .blur(searchBox)
                 .monochrome(storeLogo)
@@ -44,17 +49,20 @@ public class Example {
                 .withName("home_page")
                 .withThumbnail(0.7).save();
 
-        WebElement promoBanner = driver.findElement(By.cssSelector("ul.promos> li:nth-child(2) > a"));
-        Shutterbug.shootElement(driver, promoBanner).withName("first_promo_banner").save();
-        BufferedImage bannerImg = Shutterbug.shootElement(driver, promoBanner).getImage();
+        WebElement firstPromoBanner =
+                driver.findElement(By.cssSelector("ul.promos> li:nth-child(1) > a"));
 
-        Tesseract tesseract = new Tesseract();
-        tesseract.setDatapath("/usr/local/Cellar/tesseract/4.1.1/share/tessdata/");
-        tesseract.setLanguage("eng");
+        // image comparison
+        String baselineFilePath = new File("src/test/resources/baseline_img/first_promo_banner.png").getAbsolutePath();
 
-        String result = tesseract.doOCR(bannerImg);
-        System.out.println(result);
+        Assert.assertTrue(Shutterbug
+                .shootElement(driver, firstPromoBanner)
+                .equalsWithDiff(baselineFilePath,"diff",0.1));
 
+    }
+
+    @After()
+    public void tearDown() {
         driver.quit();
     }
 }
